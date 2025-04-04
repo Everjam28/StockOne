@@ -1,0 +1,24 @@
+# ⚡ Node.js (Backend)
+src/backend/node_modules/   # Dependencias de Node.js (NO subir)
+src/backend/dist/           # Archivos compilados de TypeScript
+src/backend/npm-debug.log   # Logs de errores de npm
+src/backend/package-lock.json  # Archivo de lock de npm (puede ser opcional)
+
+# 🎨 Angular (Frontend)
+src/Frontend/frontend/node_modules/  # Dependencias de Angular (NO subir)
+src/Frontend/frontend/dist/          # Build de Angular
+src/Frontend/frontend/.angular/      # Caché de Angular CLI
+src/Frontend/frontend/out-tsc/       # Archivos compilados de TypeScript
+
+# 🔒 Configuración y entornos
+.env                 # Variables de entorno globales
+src/backend/.env     # Variables de entorno del backend
+src/Frontend/frontend/.env  # Variables de entorno del frontend
+*.log                # Archivos de log generados
+
+# 🛠️ Archivos y carpetas de IDEs/editores
+.vscode/   # Configuración de Visual Studio Code
+.idea/     # Configuración de WebStorm / IntelliJ
+*.swp      # Archivos temporales de Vim
+.DS_Store  # Archivo de MacOS
+Thumbs.db  # Archivo de Windows

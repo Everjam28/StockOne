@@ -1,0 +1,6 @@
+projectKey=SistemaV
+serverUrl=http://localhost:9000
+serverVersion=25.3.0.104237
+dashboardUrl=http://localhost:9000/dashboard?id=SistemaV
+ceTaskId=649962d7-3259-48c2-b338-309abeed0a97
+ceTaskUrl=http://localhost:9000/api/ce/task?id=649962d7-3259-48c2-b338-309abeed0a97
