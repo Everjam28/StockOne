@@ -1,0 +1,111 @@
+<div class="max-w-3xl mx-auto mt-10 p-8 bg-white shadow-lg rounded-xl border border-gray-200">
+    <!-- Título -->
+    <h2 class="text-2xl font-semibold text-gray-700 text-center mb-6">👤 Crear Nuevo Usuario</h2>
+  
+    <!-- Mensaje de error -->
+    <div *ngIf="error" class="bg-red-100 text-red-700 p-3 rounded-lg mb-4 border border-red-400">
+      ❌ {{ error }}
+    </div>
+  
+    <!-- Formulario -->
+    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()" class="space-y-5">
+
+    <!-- Campo Cédula (idUsuario) -->
+<div>
+    <label for="idUsuario" class="block font-medium text-gray-600">🆔 Cédula</label>
+    <input type="text" id="idUsuario" formControlName="idUsuario"
+      class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+      [ngClass]="{'border-red-500': submitted && usuarioForm.controls['idUsuario'].invalid}" />
+    <p *ngIf="submitted && usuarioForm.controls['idUsuario'].invalid" class="text-red-500 text-sm">
+      ⚠️ La cédula es obligatoria (mínimo 6 caracteres).
+    </p>
+  </div>
+  
+      
+      <!-- Campo Nombre Completo -->
+      <div>
+        <label for="nombreCompleto" class="block font-medium text-gray-600">📌 Nombre Completo</label>
+        <input type="text" id="nombreCompleto" formControlName="nombreCompleto"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+          [ngClass]="{'border-red-500': submitted && usuarioForm.controls['nombreCompleto'].invalid}"
+        />
+        <p *ngIf="submitted && usuarioForm.controls['nombreCompleto'].invalid" class="text-red-500 text-sm">
+          ⚠️ Nombre completo es obligatorio.
+        </p>
+      </div>
+  
+      <!-- Campo Correo -->
+      <div>
+        <label for="correo" class="block font-medium text-gray-600">📧 Correo Electrónico</label>
+        <input type="email" id="correo" formControlName="correo"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+          [ngClass]="{'border-red-500': submitted && usuarioForm.controls['correo'].invalid}"
+        />
+        <p *ngIf="submitted && usuarioForm.controls['correo'].invalid" class="text-red-500 text-sm">
+          ⚠️ Correo válido es obligatorio.
+        </p>
+      </div>
+  
+      <!-- Campo Clave -->
+      <!-- Campo Clave -->
+<div>
+  <label for="clave" class="block font-medium text-gray-600">🔑 Clave</label>
+  <input type="password" id="clave" formControlName="clave"
+    class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+    [ngClass]="{'border-red-500': submitted && usuarioForm.controls['clave'].invalid}"
+  />
+  <p *ngIf="submitted && usuarioForm.controls['clave'].hasError('required')" class="text-red-500 text-sm">
+    ⚠️ La clave es obligatoria.
+  </p>
+  <p *ngIf="submitted && usuarioForm.controls['clave'].hasError('minlength')" class="text-red-500 text-sm">
+    ⚠️ La clave debe tener al menos 8 caracteres.
+  </p>
+  <p *ngIf="submitted && usuarioForm.controls['clave'].hasError('pattern')" class="text-red-500 text-sm">
+    ⚠️ La clave debe incluir una mayúscula, un número y un carácter especial ($!%*?&).
+  </p>
+</div>
+
+  
+      <!-- Campo Rol -->
+      <div>
+        <label for="idRol" class="block font-medium text-gray-600">🎭 Rol</label>
+        <select id="idRol" formControlName="idRol"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+          [ngClass]="{'border-red-500': submitted && usuarioForm.controls['idRol'].invalid}"
+        >
+          <option value="">Seleccione un rol</option>
+          <option *ngFor="let rol of roles" [value]="rol.idRol">{{ rol.nombre }}</option>
+        </select>
+        <p *ngIf="submitted && usuarioForm.controls['idRol'].invalid" class="text-red-500 text-sm">
+          ⚠️ Seleccionar un rol es obligatorio.
+        </p>
+      </div>
+  
+      <!-- Campo Estado -->
+      <div>
+        <label class="block font-medium text-gray-600">📌 Estado</label>
+        <div class="flex items-center space-x-4">
+          <label class="flex items-center space-x-2">
+            <input type="radio" formControlName="esActivo" [value]="true" class="form-radio">
+            <span>Activo</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" formControlName="esActivo" [value]="false" class="form-radio">
+            <span>Inactivo</span>
+          </label>
+        </div>
+      </div>
+  
+      <!-- Botones -->
+      <div class="flex justify-between mt-4">
+    
+        <button type="submit"
+            class="bg-green-500 text-white px-5 py-2 rounded-lg shadow-lg hover:bg-green-600 transition transform hover:scale-105">
+            ✅ Crear Usuario
+        </button>
+
+      </div>
+  
+    </form>
+  </div>
+  

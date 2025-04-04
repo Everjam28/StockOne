@@ -1,0 +1,61 @@
+<div class="p-6 bg-gray-100 min-h-screen flex justify-center items-center">
+    <div class="w-full max-w-3xl bg-white p-6 rounded-lg shadow-lg">
+      
+      <!-- Título -->
+      <h3 class="text-3xl font-bold text-gray-700 mb-6 text-center">
+        🛒 Detalle de Venta
+      </h3>
+  
+      <!-- Loader -->
+      <div *ngIf="loading" class="flex justify-center my-4">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+  
+      <!-- Mensaje de Error -->
+      <div *ngIf="error" class="bg-red-100 text-red-800 p-3 rounded-lg text-center font-semibold">
+        {{ error }}
+      </div>
+  
+      <!-- Tabla de Productos -->
+      <div *ngIf="detalles.length > 0" class="overflow-x-auto">
+        <h4 class="text-xl font-semibold mt-4 text-gray-600 mb-3">🛍️ Productos Vendidos</h4>
+        
+        <table class="w-full border border-gray-300 shadow-sm rounded-lg overflow-hidden">
+          <thead class="bg-blue-600 text-white uppercase text-sm">
+            <tr>
+              <th class="p-3 text-left">Producto</th>
+              <th class="p-3 text-center">Cantidad</th>
+              <th class="p-3 text-center">Precio</th>
+              <th class="p-3 text-center">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let detalle of detalles" class="border-b hover:bg-gray-100 transition">
+              <td class="p-3">{{ detalle.nombreProducto }}</td>
+              <td class="p-3 text-center">{{ detalle.cantidad }}</td>
+              <td class="p-3 text-center">{{ detalle.precio | currency }}</td>
+              <td class="p-3 text-center font-semibold">{{ detalle.total | currency }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Mensaje si no hay detalles -->
+      <p *ngIf="!loading && detalles.length === 0" class="text-center text-gray-500 mt-4">
+        ❌ No hay detalles de venta disponibles.
+      </p>
+  
+      <!-- Botón de Regresar -->
+      <div class="mt-6 text-center">
+        <button 
+          class="bg-red-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-600 transition"
+          [routerLink]="['/ventas']">
+          ⬅️ Volver a Ventas
+        </button>
+      </div>
+  
+    </div>
+  </div>
+  

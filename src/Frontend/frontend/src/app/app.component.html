@@ -1,0 +1,17 @@
+<div class="flex h-screen bg-gray-100">
+  <!-- Sidebar (Se oculta en /login y /cambiar-clave) -->
+  <app-menu *ngIf="!isLoginPage()" class="w-64 bg-white shadow-md hidden md:block"></app-menu>
+
+  <!-- Main Content -->
+  <div class="flex flex-col flex-1">
+    <!-- Navbar (Opcionalmente se oculta en login) -->
+    <nav *ngIf="!isLoginPage()" class="bg-white shadow p-4 flex items-center justify-between">
+      <h2 class="text-3xl font-bold text-red-500">Sistema de Ventas Stock One</h2>
+    </nav>
+
+    <!-- Content -->
+    <main class="p-6 flex-1 overflow-y-auto">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

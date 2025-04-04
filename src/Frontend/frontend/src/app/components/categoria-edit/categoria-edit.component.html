@@ -1,0 +1,44 @@
+<div class="max-w-3xl mx-auto mt-10 p-8 bg-white shadow-lg rounded-xl border border-gray-200">
+    <!-- Título -->
+    <h2 class="text-2xl font-semibold text-gray-700 text-center mb-6">✏️ Editar Categoría</h2>
+  
+    <!-- Mensaje de error -->
+    <div *ngIf="error" class="bg-red-100 text-red-700 p-3 rounded-lg mb-4 border border-red-400">
+      ❌ {{ error }}
+    </div>
+  
+    <!-- Formulario -->
+    <form [formGroup]="categoriaForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      
+      <!-- Campo Nombre -->
+      <div>
+        <label for="nombre" class="block font-medium text-gray-600">📌 Nombre</label>
+        <div class="relative">
+          <input type="text" id="nombre" formControlName="nombre"
+            class="w-full p-3 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-400"
+            [ngClass]="{'border-red-500': submitted && categoriaForm.controls['nombre'].invalid}"
+          />
+          <span class="absolute left-3 top-3 text-gray-400"><i class="bi bi-tag"></i></span>
+        </div>
+        <p *ngIf="submitted && categoriaForm.controls['nombre'].invalid" class="text-red-500 text-sm">
+          ⚠️ Nombre de la categoría es obligatorio.
+        </p>
+      </div>
+  
+      <!-- Botones -->
+      <div class="flex justify-between mt-4">
+        <button type="submit"
+          class="bg-blue-500 text-white px-5 py-2 rounded-lg shadow-lg hover:bg-blue-600 transition transform hover:scale-105"
+          [disabled]="categoriaForm.invalid">
+          💾 Guardar Cambios
+        </button>
+        <button type="button" 
+          class="border border-gray-500 text-gray-600 px-5 py-2 rounded-lg hover:bg-gray-100 transition"
+          (click)="onCancel()">
+          ❌ Cancelar
+        </button>
+      </div>
+  
+    </form>
+  </div>
+  

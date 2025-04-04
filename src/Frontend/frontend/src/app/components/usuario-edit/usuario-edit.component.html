@@ -1,0 +1,82 @@
+<div class="max-w-3xl mx-auto mt-10 p-8 bg-white shadow-lg rounded-xl border border-gray-200">
+    <h2 class="text-2xl font-semibold text-gray-700 text-center mb-6">✏️ Editar Usuario</h2>
+  
+    <div *ngIf="error" class="bg-red-100 text-red-700 p-3 rounded-lg mb-4 border border-red-400">
+      ❌ {{ error }}
+    </div>
+  
+    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      
+      <div>
+        <label class="block font-medium text-gray-600">👤 Nombre Completo</label>
+        <input type="text" formControlName="nombreCompleto"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+          [ngClass]="{'border-red-500': submitted && usuarioForm.controls['nombreCompleto'].invalid}"
+        />
+        <p *ngIf="submitted && usuarioForm.controls['nombreCompleto'].invalid" class="text-red-500 text-sm">
+          ⚠️ El nombre es obligatorio.
+        </p>
+      </div>
+  
+      <div>
+        <label class="block font-medium text-gray-600">📧 Correo Electrónico</label>
+        <input type="email" formControlName="correo"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+          [ngClass]="{'border-red-500': submitted && usuarioForm.controls['correo'].invalid}"
+        />
+        <p *ngIf="submitted && usuarioForm.controls['correo'].invalid" class="text-red-500 text-sm">
+          ⚠️ Ingrese un correo válido.
+        </p>
+      </div>
+  
+      <div>
+        <label class="block font-medium text-gray-600">🔑 Clave</label>
+        <input type="password" formControlName="clave"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+          [ngClass]="{'border-red-500': submitted && usuarioForm.controls['clave'].invalid}"
+        />
+        <p *ngIf="submitted && usuarioForm.controls['clave'].invalid" class="text-red-500 text-sm">
+          ⚠️ La clave debe tener al menos 6 caracteres.
+        </p>
+      </div>
+  
+      <div>
+        <label class="block font-medium text-gray-600">🔹 Rol</label>
+        <select formControlName="idRol"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+          [ngClass]="{'border-red-500': submitted && usuarioForm.controls['idRol'].invalid}"
+        >
+          <option value="">Seleccione un rol</option>
+          <option *ngFor="let rol of roles" [value]="rol.idRol">
+            {{ rol.nombre }}
+          </option>
+        </select>
+        <p *ngIf="submitted && usuarioForm.controls['idRol'].invalid" class="text-red-500 text-sm">
+          ⚠️ Seleccione un rol.
+        </p>
+      </div>
+  
+      <div class="flex items-center">
+        <input type="checkbox" formControlName="esActivo" class="mr-2">
+        <label class="text-gray-700 font-semibold">Activo</label>
+      </div>
+  
+      <div class="flex justify-between mt-4">
+        <!-- Botón Guardar Cambios -->
+        <button type="submit"
+          class="bg-blue-500 text-white px-5 py-2 rounded-lg shadow-lg hover:bg-blue-600 transition transform hover:scale-105"
+          [disabled]="usuarioForm.invalid">
+          💾 Guardar Cambios
+        </button>
+      
+        <!-- Botón Cancelar -->
+        <button type="button" 
+          class="border border-gray-500 text-gray-600 px-5 py-2 rounded-lg hover:bg-gray-100 transition"
+          (click)="onCancel()">
+          ❌ Cancelar
+        </button>
+      </div>
+  
+    </form>
+  </div>
+  

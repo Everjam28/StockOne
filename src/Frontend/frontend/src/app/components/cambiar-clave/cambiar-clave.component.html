@@ -1,0 +1,45 @@
+<!-- cambiar-clave.component.html -->
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow">
+      <h1 class="text-2xl font-bold text-center">Cambiar Contraseña</h1>
+      <p class="text-gray-600 text-center">Es tu primera vez iniciando sesión. Por favor cambia tu contraseña.</p>
+      
+      <form [formGroup]="cambiarClaveForm" (ngSubmit)="cambiarClave()" class="space-y-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Nueva Cédula</label>
+          <input type="text" formControlName="nuevaCedula" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          <div *ngIf="cambiarClaveForm.get('nuevaCedula')?.errors?.['required'] && cambiarClaveForm.get('nuevaCedula')?.touched" class="text-red-500 text-sm">
+            La cédula es requerida
+          </div>
+          <div *ngIf="cambiarClaveForm.get('nuevaCedula')?.errors?.['minlength'] && cambiarClaveForm.get('nuevaCedula')?.touched" class="text-red-500 text-sm">
+            La cédula debe tener al menos 10 caracteres
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Nueva Contraseña</label>
+          <input type="password" formControlName="nuevaClave" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          <div *ngIf="cambiarClaveForm.get('nuevaClave')?.errors?.['required'] && cambiarClaveForm.get('nuevaClave')?.touched" class="text-red-500 text-sm">
+            La contraseña es requerida
+          </div>
+          <div *ngIf="cambiarClaveForm.get('nuevaClave')?.errors?.['minlength'] && cambiarClaveForm.get('nuevaClave')?.touched" class="text-red-500 text-sm">
+            La contraseña debe tener al menos 6 caracteres
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Confirmar Contraseña</label>
+          <input type="password" formControlName="confirmarClave" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+          <div *ngIf="cambiarClaveForm.get('confirmarClave')?.errors?.['required'] && cambiarClaveForm.get('confirmarClave')?.touched" class="text-red-500 text-sm">
+            La confirmación de contraseña es requerida
+          </div>
+        </div>
+        
+        <div>
+          <button type="submit" [disabled]="cambiarClaveForm.invalid" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Guardar Cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

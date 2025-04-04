@@ -1,0 +1,105 @@
+<div class="max-w-3xl mx-auto mt-10 p-8 bg-white shadow-lg rounded-xl border border-gray-200">
+  <!-- Título -->
+  <h2 class="text-2xl font-semibold text-gray-700 text-center mb-6">✏️ Editar Producto</h2>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="error" class="bg-red-100 text-red-700 p-3 rounded-lg mb-4 border border-red-400">
+    ❌ {{ error }}
+  </div>
+
+  <!-- Formulario -->
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="space-y-5">
+    
+    <!-- Campo Nombre -->
+    <div>
+      <label for="nombre" class="block font-medium text-gray-600">📌 Nombre</label>
+      <div class="relative">
+        <input type="text" id="nombre" formControlName="nombre"
+          class="w-full p-3 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-400"
+          [ngClass]="{'border-red-500': submitted && productForm.controls['nombre'].invalid}"
+        />
+        <span class="absolute left-3 top-3 text-gray-400"><i class="bi bi-type"></i></span>
+      </div>
+      <p *ngIf="submitted && productForm.controls['nombre'].invalid" class="text-red-500 text-sm">
+        ⚠️ Nombre es obligatorio.
+      </p>
+    </div>
+
+    <!-- Campo Descripción -->
+    <div>
+      <label for="descripcion" class="block font-medium text-gray-600">📝 Descripción</label>
+      <textarea id="descripcion" formControlName="descripcion"
+        class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+        [ngClass]="{'border-red-500': submitted && productForm.controls['descripcion'].invalid}"
+      ></textarea>
+      <p *ngIf="submitted && productForm.controls['descripcion'].invalid" class="text-red-500 text-sm">
+        ⚠️ Descripción es obligatoria.
+      </p>
+    </div>
+
+    <!-- Campo Precio -->
+    <div>
+      <label for="precio" class="block font-medium text-gray-600">💰 Precio</label>
+      <div class="relative">
+        <input type="number" id="precio" formControlName="precio"
+          class="w-full p-3 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-400"
+          [ngClass]="{'border-red-500': submitted && productForm.controls['precio'].invalid}"
+        />
+        <span class="absolute left-3 top-3 text-gray-400"><i class="bi bi-cash"></i></span>
+      </div>
+      <p *ngIf="submitted && productForm.controls['precio'].invalid" class="text-red-500 text-sm">
+        ⚠️ Precio es obligatorio y debe ser mayor a 0.
+      </p>
+    </div>
+
+    <!-- Campo Stock -->
+    <div>
+      <label for="stock" class="block font-medium text-gray-600">📦 Stock</label>
+      <div class="relative">
+        <input type="number" id="stock" formControlName="stock"
+          class="w-full p-3 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-400"
+          [ngClass]="{'border-red-500': submitted && productForm.controls['stock'].invalid}"
+        />
+        <span class="absolute left-3 top-3 text-gray-400"><i class="bi bi-box"></i></span>
+      </div>
+      <p *ngIf="submitted && productForm.controls['stock'].invalid" class="text-red-500 text-sm">
+        ⚠️ Stock es obligatorio y debe ser mayor a 0.
+      </p>
+    </div>
+
+    <!-- Campo Categoría -->
+    <div>
+      <label for="idCategoria" class="block font-medium text-gray-600">🏷 Categoría</label>
+      <div class="relative">
+        <select id="idCategoria" formControlName="idCategoria"
+          class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
+          [ngClass]="{'border-red-500': submitted && productForm.controls['idCategoria'].invalid}"
+        >
+          <option value="">Seleccione una categoría</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.idCategoria">
+            {{ categoria.nombre }}
+          </option>
+        </select>
+        
+      </div>
+      <p *ngIf="submitted && productForm.controls['idCategoria'].invalid" class="text-red-500 text-sm">
+        ⚠️ Seleccionar una categoría es obligatorio.
+      </p>
+    </div>
+
+    <!-- Botones -->
+    <div class="flex justify-between mt-4">
+      <button type="submit"
+        class="bg-blue-500 text-white px-5 py-2 rounded-lg shadow-lg hover:bg-blue-600 transition transform hover:scale-105"
+        [disabled]="productForm.invalid">
+        💾 Guardar Cambios
+      </button>
+      <button type="button" 
+        class="border border-gray-500 text-gray-600 px-5 py-2 rounded-lg hover:bg-gray-100 transition"
+        (click)="onCancel()">
+        ❌ Cancelar
+      </button>
+    </div>
+
+  </form>
+</div>

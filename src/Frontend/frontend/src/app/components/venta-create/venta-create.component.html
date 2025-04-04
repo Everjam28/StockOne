@@ -1,0 +1,75 @@
+<div class="p-6 bg-white shadow-md rounded">
+    <h2 class="text-lg font-bold mb-4">Nueva Venta</h2>
+  
+    <form (ngSubmit)="registrarVenta()">
+      <!-- Tipo de Pago -->
+      <label class="block font-bold">Tipo de Pago</label>
+      <select [(ngModel)]="tipoPago" name="tipoPago" class="w-full border p-2 rounded mb-4">
+        <option value="Efectivo">Efectivo</option>
+        <option value="Tarjeta">Tarjeta</option>
+      </select>
+  
+      <!-- Búsqueda de Producto -->
+      <label class="block font-bold">Buscar Producto</label>
+      <input
+        [(ngModel)]="productoBuscado"
+        name="productoBuscado"
+        placeholder="Buscar producto por ID o Nombre"
+        class="border p-2 rounded w-full mb-2"
+        (input)="filtrarProductos($event)"
+      />
+      <ul *ngIf="productosFiltrados.length > 0" class="border bg-white absolute z-10 w-full">
+        <li
+          *ngFor="let prod of productosFiltrados"
+          (click)="seleccionarProducto(prod)"
+          class="cursor-pointer p-2 hover:bg-gray-200"
+        >
+          {{ prod.nombre }} (ID: {{ prod.idProducto }})
+        </li>
+      </ul>
+  
+      <!-- Tabla de Productos Seleccionados -->
+<h3 class="text-lg font-bold mt-6">Productos Seleccionados</h3>
+<div class="overflow-x-auto">
+  <table class="w-full border-collapse border border-gray-300 mt-2">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="border p-2 text-left">Producto</th>
+        <th class="border p-2 text-center">Cantidad</th>
+        <th class="border p-2 text-center">Precio</th>
+        <th class="border p-2 text-center">Total</th>
+        <th class="border p-2 text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productosSeleccionados; let i = index">
+        <td class="border p-2">{{ producto.nombre }}</td> <!-- Mostrar el nombre del producto -->
+        <td class="border p-2 text-center">
+          <input
+            [(ngModel)]="producto.cantidad"
+            name="cantidad-{{ i }}"
+            type="number"
+            class="w-16 border p-1 text-center"
+            (input)="calcularTotal(i)"
+            min="1"
+          />
+        </td>
+        <td class="border p-2 text-center">{{ producto.precio | currency }}</td>
+        <td class="border p-2 text-center">{{ producto.total | currency }}</td>
+        <td class="border p-2 text-center">
+          <button type="button" (click)="eliminarProducto(i)" class="bg-red-500 text-white px-2 py-1 rounded">
+            X
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+  
+      <!-- Botón para Registrar Venta -->
+      <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded mt-4 w-full">
+        Registrar Venta
+      </button>
+    </form>
+  </div>
+  

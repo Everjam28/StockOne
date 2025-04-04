@@ -1,0 +1,82 @@
+<div class="p-6 bg-gray-100 min-h-screen">
+    <!-- Encabezado -->
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-2xl font-bold text-gray-700">Usuarios</h3>
+      <button [routerLink]="['/Usuarios/crear']"
+        class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md flex items-center">
+        <i class="fas fa-user-plus mr-2"></i> Nuevo Usuario
+      </button>
+    </div>
+  
+    <!-- Tarjeta contenedora -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <div class="text-lg font-semibold text-gray-700 border-b pb-2 mb-4">Lista de Usuarios</div>
+  
+      <!-- Barra de búsqueda -->
+      <input type="text" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-400"
+        placeholder="Buscar usuarios..." (input)="filterUsers($event)">
+  
+      <!-- Tabla de usuarios -->
+      <div *ngIf="!loading && users.length > 0" class="mt-4 overflow-x-auto">
+        <table class="w-full text-center border-collapse">
+          <thead class="bg-blue-500 text-white">
+            <tr>
+              <th class="p-2">Nombre Completo</th>
+              <th>Correo</th>
+              <th>Rol</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of paginatedUsers" class="border-b hover:bg-gray-100">
+              <td class="p-2">{{ usuario.nombreCompleto }}</td>
+              <td>{{ usuario.correo }}</td>
+              <td>{{ usuario.idRol }}</td>
+              <td>
+                <span class="px-3 py-1 rounded-full text-white text-sm"
+                  [ngClass]="usuario.esActivo ? 'bg-green-500' : 'bg-red-500'">
+                  {{ usuario.esActivo ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+              <td class="flex justify-center space-x-2 p-2">
+                <button class="bg-yellow-500 hover:bg-yellow-600 text-white p-2 rounded-lg"
+                  (click)="editUser(usuario.idUsuario)">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg"
+                  (click)="deleteUser(usuario.idUsuario)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Paginación -->
+      <div class="flex justify-between items-center mt-4">
+        <button class="bg-gray-500 text-white px-3 py-1 rounded-lg" (click)="changePage(currentPage - 1)"
+          [disabled]="currentPage === 1">Anterior</button>
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+        <button class="bg-gray-500 text-white px-3 py-1 rounded-lg" (click)="changePage(currentPage + 1)"
+          [disabled]="currentPage === totalPages">Siguiente</button>
+      </div>
+  
+      <!-- Mensajes de carga y error -->
+      <div *ngIf="loading" class="text-center my-3">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+  
+      <div *ngIf="!loading && error" class="bg-red-200 text-red-800 p-3 rounded-lg text-center">
+        {{ error }}
+      </div>
+  
+      <div *ngIf="!loading && users.length === 0 && !error" class="bg-yellow-200 text-yellow-800 p-3 rounded-lg text-center">
+        No hay usuarios registrados.
+      </div>
+    </div>
+  </div>
+  
